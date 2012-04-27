@@ -1,8 +1,11 @@
 <?php
+
+// remember to set the urldecode path 
+
 include("function.php");
 if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
     $file = pathinfo($_FILES['file']['name']);
-    list($path, $url) = explode(' ', urldecode($_POST['PRESENZA'].$_POST['EDIPA'].$_POST['MOI'].$_POST['SCO']));
+    list($path, $url) = explode(' ', urldecode());
     $path = $path.'.'.$file['extension'];
     if(file_exists($url)){
     	move_uploaded_file($_FILES['file']['tmp_name'], "$url/$path");

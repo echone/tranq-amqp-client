@@ -1,9 +1,12 @@
 <?php
- if(!isset($_COOKIE['magicookie'])){
+
+//set the same cookie name setted in function.php
+ if(!isset($_COOKIE[''])){
 	    	header("location:login/");
-	    } else if($_COOKIE['magicookie']=='no'){
+	    } else if($_COOKIE['']=='no'){
 	    	header("location:login/");
 	    } else {?>
+	    
 <!DOCTYPE html>
 <html lang="en">
     <head>

@@ -5,75 +5,26 @@
 ///
 ///
 
-$array = array("EDIPA" => array ("1_anno_aule_virtuali" => array(   "diritto_lavoro_transnazionale",
-							"economia_politica_internazionale",
-							"economia_monetaria_internazionale",
-							"strategie_performance_imprese",
-							"diritto_amministrativo",
-							"diritto_lavoro_pa",
-							"economia_imprese_servizi",
-							"inglese",
-							"modelli_statistici_aziende",
-							"diritto_commerciale",
-							"comparative_public_management",
-							"economia_benessere",
-							"scienza_finanze"),
-				   "2_anno" => array(   "sociologia_organizzazioni",
-				   			"international_trade_law",
-				   			"organizzazione_imprese_internazionali",
-				   			"diritto_bancario",
-				   			"gestione_imprese_internazionali",
-				   			"contabilita_gestione_aziende_pubbliche",
-				   			"european_union_law"),
-				   ),
-		"MOI" => array ("1_anno_aule_virtuali" => array(	"economia_aziendale",
-							"economia_sistemi_impresa",
-							"informatica",
-							"matematica",
-							"diritto_economia",
-							"istituzioni_economia_politica_I",
-							"inglese"),
-				   "2_anno" => array(   "amministrazione_controllo",
-				   			"fondamenti_marketing",
-				   			"gestione_informazione",
-				   			"diritto_contratti_relazione_impresa",
-				   			"introduzione_statistica_econ_soc",
-				   			"istituzioni_economia_politica_II",
-				   			"comportamento_organizzativo"),		
-				   "3_anno" => array(	"organizzazione_aziendale",
-				   			"economia_innovazione",
-				   			"modelli_innovazione",
-				   			"comunicazione_impresa",
-				   			"marketing_distributivo",
-				   			"psicologia_processi_cognitivi",
-				   			"modelli_statistici_analisi_dati"),
-				),	
-		"SCO" => array ("1_anno_aule_virtuali" => array(	"linguistica",
-							"psicologia_generale",
-							"societa_processi_culturali",
-							"tecnologia_comunicazione",
-							"lingua_inglese_a",
-							"scrittura_lingua_italiana"),
-				   "2_anno" => array(	"comunicazione_visiva",
-				   			"psicologia_comunicazione",
-				   			"francese",
-				   			"tedesco",
-				   			"lingua_inglese_b",
-				   			"lettorato_lingua_inglese_b",
-				   			"psicologia_sociale",
-				   			"semiotica",
-				   			"semiotica_testo",
-				   			"sociologia_comunicazione"),			
-				   "3_anno" => array(	"statistica_ricerca_sociale",
-				   			"semiotica_media",
-				   			"istituzioni_economia",
-				   			"lab_grafica_videocom",
-				   			"storia_cinema",
-				   			"storia_contemporanea",
-				   			"comunicazione_politica")			
-				)	
-	);
+// CONFIG //
+$array = /*
 
+		qui ci va la definizione dell'array che indichi quali sono le variabili da associare al file uploadato
+		puo' essere il risultato di una query o un semplice listato in forma di array.
+		fate vobis :)	
+
+	*/
+	
+// connessione del sql	
+$ip_sql='';	
+$db_sql='';
+$user_sql='';
+$pass_sql='';
+
+// cookie name (remember to set it also in index.php)
+
+$ck_name='';
+	
+// END CONFIG //
 function corso($array,$date){
 	if($date==NULL){
 		$date = date('ymd-H:i');
@@ -136,12 +87,12 @@ function mysql_connection($host, $myuser, $mypass){
 
 function login($user, $pass){
 	$pass=md5($pass);
-	$link=mysql_connection('127.0.0.1', 'magicboxes', '4cc3ss0');
-	mysql_select_db('magicboxes');
+	$link=mysql_connection($ip_sql, $usel_sql, $pass_sql);
+	mysql_select_db($db_sql);
 	$query = sprintf("SELECT name, pass FROM mb_users WHERE user='$user' AND pass='$pass'");
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) == 0) {
-		setcookie('magicookie', 'no', time() + 5, '/');
+		setcookie($ck_name, 'no', time() + 5, '/');
 		header('Location: ./index.php');
     		exit;
 	}
